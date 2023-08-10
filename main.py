@@ -20,7 +20,6 @@ TOKEN = ''
 vk_id = ''
 yandex_token = ''
 
-
 class DlYandex:
 
     URL_BASE = 'https://api.vk.com/method/'
@@ -111,3 +110,16 @@ class DlYandex:
 
         pairs = [{'name': name, 'count': count} for name, count in zip(file_name, size)]
         return pairs
+
+    def do_json(self):
+        with open('info_photo.json', 'w', encoding='utf-8') as f:
+            res = json.dump(self.info_json(), f, ensure_ascii=False, indent=2)
+        return res
+
+    if __name__ == '__main__':
+        golova = DlYandex(TOKEN, vk_id, yandex_token)
+        pprint(golova.get_json_photos_vk())
+        pprint(golova.dict_info_photo())
+        pprint(golova.download_to_yandexdisk())
+        pprint(golova.info_json())
+        golova.do_json()
